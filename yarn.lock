@@ -2643,3 +2643,7 @@ yargs@^13.3.2:
     which-module "^2.0.0"
     y18n "^4.0.0"
     yargs-parser "^13.1.2"
+iscroll@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.npm.taobao.org/iscroll/download/iscroll-5.2.0.tgz#d513307088b5b25a4f893af474804468481829c8"
+  integrity sha1-1RMwcIi1slpPiTr0dIBEaEgYKcg=
