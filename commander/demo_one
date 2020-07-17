@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+console.log('hello', process.argv);
+const args = process.argv[2];
+const exec = require('child_process').exec;
+
+const child = exec(args, (err, stdout, stderr) => {
+    if (err) throw err;
+    console.log(stdout);
+});

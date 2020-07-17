@@ -5,7 +5,7 @@ root = true
 # 匹配所有文件
 [*]
 # 使用windows风格的换行控制
-end_of_line = CRLF
+end_of_line = LF
 # 在每个文件结尾添加Unix风格的空行
 insert_final_newline = true
 # 去除行尾多余的空格
