@@ -11,6 +11,8 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
+    "commander": "^5.1.0",
+    "editorconfig": "^0.15.3",
     "iscroll": "^5.2.0"
   }
 }
