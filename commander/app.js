@@ -2,6 +2,7 @@
 
 const program = require('commander');
 const inquirer = require('inquirer');
+const chalk = require('chalk');
 
 program
     .command('module')
@@ -10,13 +11,18 @@ program
     .option('-a, --name [moduleName]', '模块名称')
     .action((option) => {
         // option.options 包含option()内容的数组
-        const config = Object.assign({
-            moduleName: null,
-            description: null,
-            sass: false,
-            less: false
-        });
+        const config = Object.assign(
+            {
+                moduleName: null,
+                description: null,
+                sass: false,
+                less: false
+            },
+            option
+        );
         const prompt = [];
+
+        console.log(chalk.green('开启前端工程化之旅~'));
 
         if (typeof config.moduleName !== 'string') {
             prompt.push({
@@ -57,6 +63,7 @@ program
         }
 
         inquirer.prompt(prompt).then((answer) => {
+            console.log(chalk.blue('已设置完毕'));
             console.log(answer);
         });
     })
