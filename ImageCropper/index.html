@@ -5,30 +5,43 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>ImageCropper</title>
         <style>
-            .wrapper {
+            canvas {
                 position: relative;
-                border: 2px solid #000;
+                border: 2px dashed #632b21;
             }
             .inner {
+                position: absolute;
                 width: 100px;
                 height: 100px;
+                left: 100px;
+                top: 100px;
                 background-color: rgba(0, 0, 255, 0.3);
-                position: absolute;
+            }
+            .wrapper {
+                display: flex;
             }
         </style>
     </head>
     <body>
         <h2>👌图片的剪切模块</h2>
         <div>
-            <input type="file" accept="image/*" />
+            <input type="file" accept="image/*" value="上传图片" />
         </div>
         <div class="wrapper">
-            <img class="source" src="" alt="" />
-            <div>
+            <img class="source" src="" alt="" width="400" />
+            <div style="position: relative; margin-left: 20px;">
                 <canvas width="300" height="300"></canvas>
                 <div class="inner"></div>
+                <div class="wrapper">
+                    <button class="larger">放大</button>
+                    <button class="smaller">缩小</button>
+                    <button class="confirm">剪切</button>
+                </div>
             </div>
         </div>
+
         <img class="target" src="" alt="" />
+
+        <script src="./dist/main.js"></script>
     </body>
 </html>
