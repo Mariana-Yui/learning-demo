@@ -28,20 +28,26 @@
             <input type="file" accept="image/*" value="上传图片" />
         </div>
         <div class="wrapper">
-            <img class="source" src="" alt="" width="400" />
-            <div style="position: relative; margin-left: 20px;">
-                <canvas width="300" height="300"></canvas>
-                <div class="inner"></div>
+            <div style="width: 400px;">
+                <img class="source" src="" alt="" style="width: 400px;" />
+            </div>
+            <div style="margin-left: 20px;">
+                <div class="canvasWraper" style="position: relative;">
+                    <canvas width="300" height="300"></canvas>
+                    <div class="inner"></div>
+                </div>
                 <div class="wrapper">
                     <button class="larger">放大</button>
                     <button class="smaller">缩小</button>
                     <button class="confirm">剪切</button>
                 </div>
             </div>
+            <div style="width: 100px; height: 100px; margin-left: 20px;">
+                <img class="target" src="" alt="" />
+                <button class="download">下载</button>
+                <button class="upload">上传</button>
+            </div>
         </div>
-
-        <img class="target" src="" alt="" />
-
         <script src="./dist/main.js"></script>
     </body>
 </html>
