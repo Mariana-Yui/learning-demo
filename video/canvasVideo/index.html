@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <video src="./xgplayer-demo-720p.mp4" style="display: none;"></video>
+        <canvas width="1280" height="720"></canvas>
+        <input type="button" value="播放" onclick="handlePlay()" />
+        <input type="button" value="暂停" onclick="handlePause()" />
+        <input type="button" value="重播" onclick="handleReplay()" />
+
+        <script type="text/javascript">
+            const video = document.querySelector('video');
+            const canvas = document.querySelector('canvas');
+            const ctx = canvas.getContext('2d');
+            let timer = -1;
+
+            function draw() {
+                if (video.paused || video.ended) return;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                timer = setTimeout(draw, 0);
+            }
+
+            function handlePlay() {
+                if (!video.paused) return;
+                video.play();
+                draw();
+            }
+
+            function handlePause() {
+                if (video.paused) return;
+                video.pause();
+                clearTimeout(timer);
+            }
+
+            function handleReplay() {
+                video.currentTime = 0;
+                video.play();
+                draw();
+            }
+        </script>
+    </body>
+</html>

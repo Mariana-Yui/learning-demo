@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <!-- 这里如果使用跨域资源防止画布污染需要添加crossorigin="anonymous" 但需要后台配合返回Access-Control-Allow-Origin 否则画布还是被污染的 -->
+        <!-- <video
+            src="https://h5player.bytedance.com/video/mp4/xgplayer-demo-720p.mp4"
+            autoplay="true"
+            muted
+            playsinline
+            controls="controls"
+            crossorigin="anonymous"
+        ></video> -->
+        <video
+            src=""
+            autoplay="true"
+            muted
+            playsinline
+            controls="controls"
+            crossorigin="anonymous"
+        ></video>
+        <input
+            type="file"
+            name="upload"
+            id="upload"
+            value="上传视频"
+            onchange="handleUpload(event)"
+        />
+        <input type="button" value="截图" onclick="handleScreenShot()" />
+        <input type="button" value="下载" onclick="handleDownload()" />
+
+        <script type="text/javascript">
+            const video = document.getElementsByTagName('video')[0];
+            let url = '';
+
+            function handleScreenShot(event) {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const img = new Image();
+                canvas.toBlob((blob) => {
+                    URL.revokeObjectURL(url);
+                    img.src = url = URL.createObjectURL(blob);
+                    document.body.append(img);
+                }); // 默认格式 image/png
+            }
+
+            function handleDownload(filename = 'capture.png') {
+                if (!url) return alert('error');
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.append(a);
+                a.click();
+                a.remove();
+            }
+            function handleUpload(event) {
+                const file = event.target.files[0];
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const ab = reader.result;
+                    video.src = URL.createObjectURL(new Blob([ab]));
+                };
+                reader.readAsArrayBuffer(file);
+            }
+        </script>
+    </body>
+</html>

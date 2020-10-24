@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Uploader Preview</title>
+        <style>
+            .preview {
+                width: 300px;
+                height: 300px;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>上传文件实时预览</h2>
+        <input type="file" name="upload" id="upload" accept="image/*, video/*" />
+        <div class="preview"></div>
+
+        <script type="text/javascript">
+            document.getElementById('upload').addEventListener('change', (event) => {
+                const preview = document.getElementsByClassName('preview')[0];
+                const file = event.target.files[0];
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const ab = reader.result;
+                    const url = URL.createObjectURL(new Blob([ab]));
+                    const type = file.type.split('/')[0];
+                    switch (type) {
+                        case 'image': {
+                            const img = new Image(preview.clientWidth, preview.clientHeight);
+                            img.src = url;
+                            preview.innerHTML = img.outerHTML;
+                            break;
+                        }
+                        case 'video': {
+                            const video = document.createElement('video');
+                            video.width = preview.clientWidth;
+                            video.height = preview.clientHeight;
+                            video.controls = true;
+                            video.muted = true;
+                            video.src = url;
+                            preview.innerHTML = video.outerHTML;
+                            break;
+                        }
+                    }
+                };
+                reader.readAsArrayBuffer(file);
+            });
+        </script>
+    </body>
+</html>

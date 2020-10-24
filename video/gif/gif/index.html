@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>GIF 工口</title>
+    </head>
+    <body>
+        <h2>涩图加载中...</h2>
+        <img src="" alt="" />
+        <input type="button" value="下载" disabled />
+        <script src="https://cdn.bootcdn.net/ajax/libs/gif.js/0.2.0/gif.js"></script>
+        <script type="text/javascript">
+            let index = 0;
+            let stopRender = false;
+            const gif = new GIF({
+                workers: 2,
+                quality: 10
+            });
+            gif.on('finished', (blob) => {
+                const url = URL.createObjectURL(blob);
+                document.querySelector('h2').innerHTML = '涩图加载完成~';
+                document.querySelector('img').src = url;
+                // 开放下载
+                document.querySelector('input[type=button]').disabled = false;
+                document.querySelector('input[type=button]').addEventListener('click', (event) => {
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'pixiv.gif';
+                    document.body.append(a);
+                    a.click();
+                    a.remove();
+                });
+                // window.open(URL.createObjectURL(blob));
+            });
+            function addFrame(index) {
+                if (stopRender) return;
+                const indexStr = String(index).padStart(2, '0');
+                const img = new Image();
+                img.src = `./82308610_ugoira600x600/0000${indexStr}.jpg`;
+                img.onload = () => {
+                    gif.addFrame(img, { delay: 100 });
+                    if (index === 86) {
+                        stopRender = true;
+                        gif.render();
+                    }
+                    addFrame(index + 1);
+                };
+            }
+
+            addFrame(index);
+        </script>
+    </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Canvas 工口</title>
+    </head>
+    <canvas width="600" height="600"></canvas>
+    <body>
+        <script type="text/javascript">
+            const canvas = document.getElementsByTagName('canvas')[0];
+            const buffer = [];
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            function gifRender() {
+                let index = -1;
+                function draw() {
+                    if (+index === 86) index = 0;
+                    index = String(Number(index) + 1).padStart(2, '0');
+                    if (buffer.length < 87) {
+                        const path = `./82308610_ugoira600x600/0000${index}.jpg`;
+                        img.src = path;
+                    } else {
+                        img.src = buffer[+index];
+                    }
+                    console.log(buffer);
+                    /*等图片加载成功后才可以进行绘制。
+                    而drawImage这个方法，当图片在没加载完的情况下使用，他会不被调用。绘制就会失败。*/
+                    img.onload = () => {
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        !buffer[+index] &&
+                            canvas.toBlob((blob) => {
+                                const url = URL.createObjectURL(blob);
+                                buffer.push(url);
+                            });
+                    };
+                    // requestAnimationFrame(draw);
+                    setTimeout(draw, 100);
+                }
+                // requestAnimationFrame(draw);
+                draw();
+            }
+
+            gifRender();
+        </script>
+    </body>
+</html>
