@@ -15,8 +15,10 @@
   "dependencies": {
     "chalk": "^4.1.0",
     "commander": "^5.1.0",
+    "dayjs": "^1.9.4",
     "editorconfig": "^0.15.3",
     "inquirer": "^7.3.3",
-    "iscroll": "^5.2.0"
+    "iscroll": "^5.2.0",
+    "node-fetch": "^2.6.1"
   }
 }
