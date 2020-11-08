@@ -1,0 +1,10 @@
+@import 'screen.scss';
+
+body {
+    img {
+        width: 30%;
+        transform: translate(-100px, 0);
+        display: flex;
+        clip-path: inset(100px 100px);
+    }
+}
