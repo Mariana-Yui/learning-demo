@@ -1,18 +1,28 @@
-import Header from './Header';
-import Avatar from './Avatar';
-import Wallpaper from '../image/screen.jpg';
+import _ from 'lodash';
+import printMe from './print';
 import '../css/index.scss';
 
-const header = new Header('denislin');
+const arr = [1, 2, 3].map((v) => v);
 
-const name = header.getName();
+function component() {
+    const element = document.createElement('div');
+    const btn = document.createElement('button');
+    btn.innerHTML = 'Click me and check the console!';
+    element.innerHTML = _.join(['Hello', 'Webpack'], ' ');
+    btn.onclick = printMe;
 
-document.write(name);
+    element.appendChild(btn);
 
-const avatar = new Avatar(Wallpaper);
+    return element;
+}
 
-avatar.appendToBody();
+let element = component();
+document.body.appendChild(element);
 
-const screen = document.createElement('div');
-screen.classList.add('screen');
-document.body.append(screen);
+if (module.hot) {
+    module.hot.accept('./print', () => {
+        document.body.removeChild(element);
+        element = component();
+        document.body.appendChild(element);
+    });
+}
