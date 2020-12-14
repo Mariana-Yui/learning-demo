@@ -1,16 +1,19 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { merge } = require('webpack-merge');
+const devConfig = require('./webpack.dev');
+const prodConfig = require('./webpack.prod');
 
-module.exports = {
+const commonConfig = {
     entry: {
         main: './webpack/src/js/index.js',
         main_2: './webpack/src/js/index_2.js'
     },
     output: {
-        filename: '[name].js',
+        filename: '[name].[contenthash].js',
         chunkFilename: '[name].chunk.js',
-        publicPath: '/outdist',
+        // publicPath: '/outdist',
         path: path.resolve(__dirname, '../webpack/dist')
     },
     module: {
@@ -58,4 +61,12 @@ module.exports = {
         }),
         new CleanWebpackPlugin()
     ]
+};
+
+module.exports = (env) => {
+    if (env && env.production) {
+        return merge(commonConfig, prodConfig);
+    } else {
+        return merge(commonConfig, devConfig);
+    }
 };

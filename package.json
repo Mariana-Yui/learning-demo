@@ -11,8 +11,8 @@
     ],
     "scripts": {
         "watch": "webpack-dev-server",
-        "dev": "webpack-dev-server --config build/webpack.dev.js",
-        "bundle": "webpack --config build/webpack.prod.js"
+        "dev": "webpack-dev-server --config build/webpack.common.js",
+        "bundle": "webpack --env.production --config build/webpack.common.js"
     },
     "devDependencies": {
         "@babel/core": "^7.12.3",
